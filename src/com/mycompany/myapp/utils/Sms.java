@@ -15,13 +15,13 @@ import com.twilio.rest.verify.v2.service.VerificationCheck;
  * @author splin
  */
 public class Sms {
-    public static final String ACCOUNT_SID = "AC6753c270700b6fea070be1b85dfc3c6e";
-    public static final String AUTH_TOKEN = "c2b9e9b20d48d7562fca49e637080f8f";
+    public static final String ACCOUNT_SID = "ACc7c244aa75cb3f02e899d9d08bedeed7";
+    public static final String AUTH_TOKEN = "955bfc6065c326e5f028a94f58fd0f07";
     
     public void otpsend(String num){
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         Verification verification = Verification.creator(
-                "VA47c1e1261cf7b302dda5ea6ddae3210e",
+                "VAfe30c9adac4272a8cdd00745287f8f13",
                 "+216"+num,
                 "sms")
             .create();
@@ -33,7 +33,7 @@ public class Sms {
          }
          else{
              VerificationCheck verificationCheck = VerificationCheck.creator(
-                "VA47c1e1261cf7b302dda5ea6ddae3210e",
+                "VAfe30c9adac4272a8cdd00745287f8f13",
                 mdp)
             .setTo("+216"+num).create();
         return verificationCheck.getStatus().equals("approved");

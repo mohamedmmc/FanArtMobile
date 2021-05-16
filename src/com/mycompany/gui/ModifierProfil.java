@@ -155,7 +155,9 @@ public class ModifierProfil extends BaseForm {
                     } else {
                         filename = u.getPhoto();
                     }
-                    String result = su.modifierProfil((su.getiduser(Statics.session, res)), nom.getText(), prenom.getText(), email.getText(), numtel.getText(), filename, roles, res);
+                    String result = su.modifierProfil(Statics.session, nom.getText(), prenom.getText(), email.getText(), numtel.getText(), filename, roles, res);
+                    
+                    System.out.println(result);
                     if (result.equals("\"done\"")) {
                         new ProfileForm(Statics.session, res).show();
 //                        new ProfileForm(su.getiduser(u.getEmail(), res), res).show();
