@@ -309,7 +309,7 @@ public class ServiceUser extends Form {
         HttpClient httpclient = new DefaultHttpClient();
         httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
 
-        HttpPost httppost = new HttpPost("http://localhost:8080/img/upload2.php");
+        HttpPost httppost = new HttpPost("http://localhost:80/img/upload2.php");
 
         File file = new File(che.substring(6));
 

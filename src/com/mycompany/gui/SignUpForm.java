@@ -19,11 +19,8 @@
 package com.mycompany.gui;
 
 import com.codename1.components.FloatingHint;
-import com.codename1.components.ImageViewer;
 import com.codename1.components.InfiniteProgress;
 import com.codename1.components.ToastBar;
-import com.codename1.io.MultipartRequest;
-import com.codename1.io.NetworkManager;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComboBox;
 import com.codename1.ui.Container;
@@ -34,7 +31,6 @@ import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
-import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
@@ -43,7 +39,6 @@ import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.util.Resources;
 import com.codename1.ui.validation.RegexConstraint;
 import com.codename1.ui.validation.Validator;
-import com.mycompany.myapp.entity.User;
 import com.mycompany.myapp.service.ServiceUser;
 import java.io.IOException;
 import java.util.Vector;

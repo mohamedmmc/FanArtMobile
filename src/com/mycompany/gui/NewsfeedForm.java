@@ -27,6 +27,7 @@ import com.codename1.ui.ButtonGroup;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
+import com.codename1.ui.EncodedImage;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
@@ -35,6 +36,7 @@ import com.codename1.ui.RadioButton;
 import com.codename1.ui.Tabs;
 import com.codename1.ui.TextArea;
 import com.codename1.ui.Toolbar;
+import com.codename1.ui.URLImage;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
@@ -42,6 +44,14 @@ import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.entity.Evenement;
+import com.mycompany.myapp.service.ServiceEvents;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+import com.mycompany.myapp.utils.Statics;
+
 
 /**
  * The newsfeed form
@@ -49,9 +59,11 @@ import com.codename1.ui.util.Resources;
  * @author Shai Almog
  */
 public class NewsfeedForm extends BaseForm {
-
+    Resources resources1;
     public NewsfeedForm(String json,Resources res) {
+        
         super("Newsfeed", BoxLayout.y());
+        resources1=res;
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
         getTitleArea().setUIID("Container");
@@ -65,9 +77,10 @@ public class NewsfeedForm extends BaseForm {
 
         Label spacer1 = new Label();
         Label spacer2 = new Label();
-        addTab(swipe, res.getImage("news-item.jpg"), spacer1, "15 Likes  ", "85 Comments", "Integer ut placerat purued non dignissim neque. ");
-        addTab(swipe, res.getImage("dog.jpg"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
-                
+        
+       // addTab(swipe, res.getImage("news-item.jpg"), spacer1, "15 Likes  ", "85 Comments", "Integer ut placerat purued non dignissim neque. ");
+       addTab(swipe, res.getImage("dog.jpg"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
+//                
         swipe.setUIID("Container");
         swipe.getContentPane().setUIID("Container");
         swipe.hideTabs();
@@ -137,11 +150,37 @@ public class NewsfeedForm extends BaseForm {
         addOrientationListener(e -> {
             updateArrowPosition(barGroup.getRadioButton(barGroup.getSelectedIndex()), arrow);
         });
+        List listevent = new ArrayList<>(ServiceEvents.getInstance().getAllTasks());
+                
+int heights = Display.getInstance().convertToPixels(11.5f);
+                    int widths = Display.getInstance().convertToPixels(14f);
+                EncodedImage placeholders = EncodedImage.createFromImage(Image.createImage(heights,widths, 0), true);
+        /*********************************************************************/
         
-        addButton(res.getImage("news-item-1.jpg"), "Morbi per tincidunt tellus sit of amet eros laoreet.", false, 26, 32);
-        addButton(res.getImage("news-item-2.jpg"), "Fusce ornare cursus masspretium tortor integer placera.", true, 15, 21);
-        addButton(res.getImage("news-item-3.jpg"), "Maecenas eu risus blanscelerisque massa non amcorpe.", false, 36, 15);
-        addButton(res.getImage("news-item-4.jpg"), "Pellentesque non lorem diam. Proin at ex sollicia.", false, 11, 9);
+     
+        /*********************************************************************/
+
+       for (Iterator it = listevent.iterator(); it.hasNext();) {
+           Evenement e=(Evenement)it.next();
+           Random a = new Random();
+                      Image icon1=URLImage.createToStorage(placeholders, a.toString(), "http://localhost:80/img/"+e.getImage());
+       
+                addButton1(icon1, e.getDescription(), false, 26, 32,e.getId_evenement());
+            
+                     
+           
+            
+
+           
+       }
+       
+            
+
+            
+       
+        
+//        addButton(res.getImage("news-item-3.jpg"), "Maecenas eu risus blanscelerisque massa non amcorpe.", false, 36, 15);
+//        addButton(res.getImage("news-item-4.jpg"), "Pellentesque non lorem diam. Proin at ex sollicia.", false, 11, 9);
     }
     
     private void updateArrowPosition(Button b, Label arrow) {
@@ -173,7 +212,7 @@ public class NewsfeedForm extends BaseForm {
         image.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
         Label overlay = new Label(" ", "ImageOverlay");
         
-        Container page1 = 
+       Container page1 = 
             LayeredLayout.encloseIn(
                 image,
                 overlay,
@@ -189,10 +228,10 @@ public class NewsfeedForm extends BaseForm {
         swipe.addTab("", page1);
     }
     
-   private void addButton(Image img, String title, boolean liked, int likeCount, int commentCount) {
-       int height = Display.getInstance().convertToPixels(11.5f);
-       int width = Display.getInstance().convertToPixels(14f);
-       Button image = new Button(img.fill(width, height));
+    
+   private void addButton1(Image img, String title, boolean liked, int likeCount, int commentCount,int n) {
+       
+       Button image =new Button(img);
        image.setUIID("Label");
        Container cnt = BorderLayout.west(image);
        cnt.setLeadComponent(image);
@@ -212,15 +251,29 @@ public class NewsfeedForm extends BaseForm {
        }
        Label comments = new Label(commentCount + " Comments", "NewsBottomLine");
        FontImage.setMaterialIcon(likes, FontImage.MATERIAL_CHAT);
+       Button reserverbtn =new Button("Reserver");
+       
        
        
        cnt.add(BorderLayout.CENTER, 
                BoxLayout.encloseY(
+                       
                        ta,
                        BoxLayout.encloseX(likes, comments)
+                       
                ));
        add(cnt);
-       image.addActionListener(e -> ToastBar.showMessage(title, FontImage.MATERIAL_INFO));
+       add(reserverbtn);
+       
+       reserverbtn.addActionListener((evt) -> {
+           ParticiperForm p=new ParticiperForm("", resources1);
+           p.show();
+            Statics.idevenement=n;
+       
+           
+           
+       });
+      
    }
     
     private void bindButtonSelection(Button b, Label arrow) {
@@ -230,4 +283,5 @@ public class NewsfeedForm extends BaseForm {
             }
         });
     }
+    
 }

@@ -33,9 +33,9 @@ import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.layouts.Layout;
 import com.codename1.ui.plaf.Style;
+import com.mycompany.myapp.service.ServiceUser;
 import com.codename1.ui.util.Resources;
 import com.mycompany.myapp.entity.User;
-import com.mycompany.myapp.service.ServiceUser;
 import com.mycompany.myapp.utils.Statics;
 import java.io.IOException;
 import java.util.Random;
@@ -86,7 +86,7 @@ public class BaseForm extends Form {
         Random a = new Random();
         int mm = Display.getInstance().convertToPixels(3); 
         EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(mm * 7, mm * 7, 0), true);
-        Image icon1 = URLImage.createToStorage(placeholder, a.toString(), "http://localhost:8080/img/"+u.getPhoto());
+        Image icon1 = URLImage.createToStorage(placeholder, a.toString(), "http://localhost:80/img/"+u.getPhoto());
         
         
         if (img.getHeight() > Display.getInstance().getDisplayHeight() / 3) {
@@ -107,6 +107,8 @@ public class BaseForm extends Form {
         tb.addMaterialCommandToSideMenu("Profil", FontImage.MATERIAL_SETTINGS, e -> {
             new ProfileForm(id, res).show();
         });
+        tb.addMaterialCommandToSideMenu("Evenement", FontImage.MATERIAL_UPDATE, e -> new EventForm(id, res).show());
+
         tb.addMaterialCommandToSideMenu("Déconnexion", FontImage.MATERIAL_EXIT_TO_APP, e -> new WalkthruForm(res).show());
     }
 }
