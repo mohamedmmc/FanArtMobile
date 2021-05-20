@@ -84,6 +84,8 @@ public class SignInForm extends BaseForm {
                 Dialog.show("Erreur", "Veuillez remplir tout les champs", "OK", null);
             } else {
                 ServiceUser.getInstance().SignIn(email, mdp, res);
+                com.mycompany.myapp.utils.Statics.mailuser= email.getText();
+                
             }
         });
         mp.addActionListener((evt) -> {
