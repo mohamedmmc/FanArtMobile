@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component type="Container" name="GUI 1" cloudDestinationProperty="GUI 1" >
+  <component type="Label" name="Label" cloudDestinationProperty="Label" text="Label" >
+  </component>
+  <component type="TextField" name="TextField" cloudBoundProperty="text" cloudDestinationProperty="TextField" text="TextField" hint="evenment" >
+  </component>
+</component>

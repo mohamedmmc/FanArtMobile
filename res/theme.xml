@@ -5,6 +5,8 @@
     <image name="confirmation-background.jpg"  />
     <image name="dog.jpg"  />
     <image name="facebook-logo.png" type="multi"  />
+    <ui name="GUI 1" />
+    <image name="image.png"  />
     <image name="Logo.png" type="multi"  />
     <image name="mails.png"  />
     <image name="news-item-1.jpg"  />

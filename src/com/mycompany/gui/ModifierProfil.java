@@ -88,7 +88,7 @@ public class ModifierProfil extends BaseForm {
 
         int mm = Display.getInstance().convertToPixels(3);
         EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(mm * 7, mm * 7, 0), true);
-        Image icon1 = URLImage.createToStorage(placeholder, u.toString(), "http://localhost:8080/img/" + u.getPhoto());
+        Image icon1 = URLImage.createToStorage(placeholder, u.toString(), "http://localhost:80/img/" + u.getPhoto());
 
         Label ivv = new Label(icon1, "Pdp");
         ivv.setMaxAutoSize(BOTTOM);
@@ -155,7 +155,8 @@ public class ModifierProfil extends BaseForm {
                     } else {
                         filename = u.getPhoto();
                     }
-                    String result = su.modifierProfil((su.getiduser(Statics.session, res)), nom.getText(), prenom.getText(), email.getText(), numtel.getText(), filename, roles, res);
+                    System.out.println(nom.getText());
+                    String result = su.modifierProfil(Statics.session, nom.getText(), prenom.getText(), email.getText(), numtel.getText(), filename, roles, res);
                     if (result.equals("\"done\"")) {
                         new ProfileForm(Statics.session, res).show();
 //                        new ProfileForm(su.getiduser(u.getEmail(), res), res).show();
@@ -168,9 +169,7 @@ public class ModifierProfil extends BaseForm {
                 }
 
             }
-            if (dialog) {
-                Dialog.show("Erreur", "Echec de la modification du compte", "ok", null);
-            }
+          
         });
     }
 
